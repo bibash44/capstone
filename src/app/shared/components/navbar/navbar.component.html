@@ -1,0 +1,208 @@
+<main>
+
+  <mat-toolbar class="firstToolbar">
+    <div class="logo">
+      <a [routerLink]="['/']">
+        <img src="assets/images/sitelogo.png" alt="">
+      </a>
+    </div>
+
+
+    <div class="actions ml-5">
+
+      <button>
+        <a [routerLink]="['/cart']" *ngIf="isUserLoggedIn">
+          <mat-icon matBadge="{{totalCartItems}}" matBadgePosition="after" matBadgeColor="warn">
+            <fa-icon [icon]="faShoppingCart"></fa-icon>
+          </mat-icon>
+        </a>
+      </button>
+
+      <!-- If user is not logged in then show this -->
+      <button class="ml-5 mr-5">
+        <a [routerLink]="['/login']" *ngIf="!isUserLoggedIn">
+          <mat-icon>
+            <fa-icon [icon]="faUser"></fa-icon>
+          </mat-icon>
+          <span style="font-size: small; color: #909090;"> Login </span>
+        </a>
+
+        <!-- If the user is logged in then show this -->
+        <button mat-icon-button [matMenuTriggerFor]="loggedInUSerMenu" aria-label="Logged in user option"
+          *ngIf="isUserLoggedIn">
+          <span style="font-size: small;"> Hello
+            <span style="font-size: medium; color: #909090;">
+              {{this.loggedInUserData.userData.data.fname}}
+              {{this.loggedInUserData.userData.data.lname}} </span>
+          </span>
+        </button>
+
+      </button>
+
+      <button class="ml-5 open-menu" (click)="openMenu()">
+        <mat-icon>
+          <fa-icon *ngIf="showIcon" [icon]="faBars"></fa-icon>
+          <fa-icon *ngIf="!showIcon" [icon]="faTimes"></fa-icon>
+        </mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+
+
+
+
+  <!-- Main nav bar -->
+
+  <div class="text-left w-100 m-auto secondToolbar">
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="electronicsMenu" aria-label="Example icon-button with a menu">
+            Electronics
+          </button>
+        </div>
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="clothingsMenu" aria-label="Example icon-button with a menu">
+            Clothings
+          </button>
+        </div>
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="watchesMenu" aria-label="Example icon-button with a menu">
+            Watches
+          </button>
+        </div>
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="shoesMenu" aria-label="Example icon-button with a menu">
+            Shoes
+          </button>
+        </div>
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="groceriesMenu" aria-label="Example icon-button with a menu">
+            Groceries
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Collapsed Menu bar -->
+
+  <div class="text-left w-100 m-auto thirdToolbar" *ngIf="showCollapseMenu">
+    <div class="container-fluid text-left">
+      <div class="row">
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="electronicsMenu" aria-label="Example icon-button with a menu">
+            Electronics
+          </button>
+        </div>
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="clothingsMenu" aria-label="Example icon-button with a menu">
+            Clothings
+          </button>
+        </div>
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="watchesMenu" aria-label="Example icon-button with a menu">
+            Watches
+          </button>
+        </div>
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="shoesMenu" aria-label="Example icon-button with a menu">
+            Shoes
+          </button>
+        </div>
+
+        <div class="col-sm">
+          <!-- <a [routerLink]="['/categories/'+navLink.routerLink]" routerLinkActive="active"> {{navLink.navLikLabel}} </a> -->
+          <button mat-icon-button [matMenuTriggerFor]="groceriesMenu" aria-label="Example icon-button with a menu">
+            Groceries
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- User profile  -->
+
+  <mat-menu #loggedInUSerMenu="matMenu">
+    <button mat-menu-item style="border: none; outline: none;">
+      <i class="fa fa-user"></i> &nbsp;
+      <span> <a [routerLink]="['/profile']" style="color: black; text-decoration: none;"> Profile </a> </span>
+    </button>
+
+    <a class="btn btn-block"  href="/admin" *ngIf="isAdmin" mat-menu-item style="border: none; outline: none;">
+       <i class="fa fa-dashboard"></i> &nbsp;
+      <span>Dashboard</span>
+    </a>
+
+    <button (click)="logoutUser()" mat-menu-item style="border: none; outline: none;">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>Logout </span>
+    </button>
+
+  </mat-menu>
+
+  <!-- End of mat menu user profile -->
+
+  <!-- Sub menu list -->
+  <mat-menu #electronicsMenu="matMenu">
+    <button mat-menu-item *ngFor="let menu of ElectronisMenu" style="border: none; outline: none;">
+      <span> <a href="/categories/electronics{{menu.routerLink}}" style="color: black; text-decoration: none;">
+          {{menu.navLinkLabel}} </a> </span>
+    </button>
+  </mat-menu>
+
+
+  <mat-menu #clothingsMenu="matMenu">
+    <button mat-menu-item *ngFor="let menu of ClothingsMenu" style="border: none; outline: none;">
+      <span> <a href="/categories/clothings{{menu.routerLink}}" style="color: black; text-decoration: none;">
+          {{menu.navLinkLabel}} </a> </span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #watchesMenu="matMenu">
+    <button mat-menu-item *ngFor="let menu of WatchesMenu" style="border: none; outline: none;">
+      <span> <a href="/categories/watches{{menu.routerLink}}" style="color: black; text-decoration: none;">
+          {{menu.navLinkLabel}} </a> </span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #shoesMenu="matMenu">
+    <button mat-menu-item *ngFor="let menu of ShoesMenu" style="border: none; outline: none;">
+      <span> <a href="/categories/shoes{{menu.routerLink}}" style="color: black; text-decoration: none;">
+          {{menu.navLinkLabel}} </a> </span>
+    </button>
+  </mat-menu>
+
+
+  <mat-menu #groceriesMenu="matMenu">
+    <button mat-menu-item *ngFor="let menu of GroceriesMenu" style="border: none; outline: none;">
+      <span> <a href="/categories/groceries{{menu.routerLink}}" style="color: black; text-decoration: none;">
+          {{menu.navLinkLabel}} </a> </span>
+    </button>
+  </mat-menu>
+
+
+
+</main>
+<ng-content></ng-content>

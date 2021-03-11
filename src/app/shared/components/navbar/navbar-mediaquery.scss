@@ -1,0 +1,57 @@
+@media screen and (max-width: 800px) {
+  .firstToolbar {
+    text-align: left;
+
+
+    .logo {
+      flex: 2;
+      margin-left: 0%;
+    }
+    .search {
+      display: none;
+    }
+    .actions {
+      flex: 1;
+
+      .open-menu{
+        display: block;
+      }
+    }
+  }
+
+
+
+
+  .secondToolbar {
+    display: none;
+    .gap {
+      flex: 0;
+    }
+    .container-fluid{
+      text-align: left;
+      .row{
+        .col-sm{
+          padding: 1%;
+          margin: 1%;
+        }
+      }
+    }
+  }
+
+.thirdToolbar{
+  text-align: left;
+}
+
+
+
+}
+
+@media screen and (min-width: 800px) {
+  .secondToolbar {
+    display: block;
+  }
+
+  .thirdToolbar {
+    display: none;
+  }
+}

@@ -1,0 +1,32 @@
+section {
+  .itemlist {
+    .filter {
+      ::ng-deep {
+        .mat-form-field-appearance-outline .mat-form-field-outline,
+        .mat-checkbox-checked.mat-accent
+          .mat-checkbox-ripple
+          .mat-ripple-element {
+          color: black;
+        }
+      }
+
+      select {
+        border: none;
+        outline: none;
+      }
+    }
+    .SearchFilterInput {
+      border: none;
+      border-radius: 5px;
+      background: rgba(182, 182, 182, 0.5);
+      outline: none;
+      padding: 10px;
+    }
+
+    img {
+      border-radius: 25px;
+      height: 30vh;
+      object-fit: cover;
+    }
+  }
+}

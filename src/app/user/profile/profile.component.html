@@ -1,0 +1,155 @@
+<app-navbar></app-navbar>
+
+<section>
+  <div class="container-fluid mt-5 mb-5">
+    <div class="row">
+      <div class="col-sm-3 profile-nav text-center">
+
+        <div class="user-details">
+          <h5> {{loggedInUserData.userData.data.email}} </h5>
+          <h6> {{loggedInUserData.userData.data.fname}} {{loggedInUserData.userData.data.lname}} </h6>
+        </div>
+
+        <ul class="text-left">
+          <li><a [routerLink]="['/profile']" style="color: #F44336;"> <i class="fa fa-user-circle-o"></i> Profile </a>
+          </li>
+          <li><a [routerLink]="['/orders']"> <i class="fa fa-first-order"></i> Order history</a></li>
+          <li><a [routerLink]="['/cart']"> <i class="fa fa-shopping-cart"></i> Cart </a></li>
+          <li><a style="cursor: pointer;" (click)="confirmLogout()"> <i class="fa fa-power-off"></i> Logout </a></li>
+        </ul>
+      </div>
+      <div class="col-sm-8 ml-1 text-center">
+        <div class="update-container mb-5">
+
+          <mat-card>
+            <h1 class="text-center">update profile</h1>
+            <form [formGroup]="updateFormGroup" (submit)="updateProfile()">
+
+              <!-- First name -->
+              <mat-error class="text-left"
+                *ngIf="updateFormGroup.controls.fname.touched && updateFormGroup.controls.fname.hasError('required')">
+                Enter your first name *
+              </mat-error>
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>First name </mat-label>
+                <input matInput placeholder="Enter your first name *" type="text" formControlName="fname">
+                <mat-icon matSuffix>person_pin</mat-icon>
+              </mat-form-field>
+
+              <!-- Last name -->
+
+              <mat-error class="text-left"
+                *ngIf="updateFormGroup.controls.lname.touched && updateFormGroup.controls.lname.hasError('required')">
+                Enter your last name *
+              </mat-error>
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Last name </mat-label>
+                <input matInput placeholder="Enter your last name *" type="text" formControlName="lname">
+                <mat-icon matSuffix>person_pin</mat-icon>
+              </mat-form-field>
+
+
+              <!-- Phone number -->
+              <mat-error class="text-left"
+                *ngIf="updateFormGroup.controls.phone.touched && updateFormGroup.controls.phone.hasError('required')">
+                Enter your phone number *
+              </mat-error>
+
+              <mat-error
+                *ngIf="updateFormGroup.controls.phone.touched && updateFormGroup.controls.phone.hasError('pattern')">
+                Enter Valid number *
+              </mat-error>
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Phone number </mat-label>
+                <input matInput placeholder="Enter your phone number *" type="text" formControlName="phone">
+                <mat-icon matSuffix>phone</mat-icon>
+              </mat-form-field>
+
+              <!-- Email -->
+              <mat-error class="text-left"
+                *ngIf="updateFormGroup.controls.email.touched && updateFormGroup.controls.email.hasError('required')">
+                Enter your email *
+              </mat-error>
+              <mat-error class="text-left"
+                *ngIf="updateFormGroup.controls.email.touched && updateFormGroup.controls.email.hasError('email')">
+                Enter valid email *
+              </mat-error>
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label> Email </mat-label>
+                <input matInput placeholder="Enter your email  *" type="text" formControlName="email">
+                <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
+
+
+
+              <!-- District -->
+
+              <mat-error class="text-left"
+                *ngIf="updateFormGroup.controls.state.touched && updateFormGroup.controls.state.hasError('required')">
+                Select your state *
+              </mat-error>
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state">
+                  <mat-option *ngFor="let state of states" [value]="state.state">
+                    {{state.state}}
+                  </mat-option>
+                </mat-select>
+                <mat-icon matSuffix>map</mat-icon>
+              </mat-form-field>
+
+
+              <!-- Zip / Postal code -->
+
+              <mat-error class="text-left"
+                *ngIf="updateFormGroup.controls.zip.touched && updateFormGroup.controls.zip.hasError('required')">
+                Enter your zip  *
+              </mat-error>
+
+              <mat-error class="text-left"
+                *ngIf="updateFormGroup.controls.zip.touched && updateFormGroup.controls.zip.hasError('pattern')">
+                Enter 5 digits zip code *
+              </mat-error>
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Zip code </mat-label>
+                <input matInput placeholder="Enter your postal code  *" type="number" formControlName="zip">
+                <mat-icon matSuffix>location_on</mat-icon>
+              </mat-form-field>
+
+
+              <!-- Submit button -->
+
+              <button type="submit" class="btn btn-dark w-100 p-2 mt-2 mb-2" [disabled]="!updateFormGroup.valid"> Update
+              </button>
+
+            </form>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<ng-template #updateProfileDiagouge>
+  <h2 matDialogTitle>You need to relogin after updating the profile ? </h2>
+  <button (click)="confirmUpdate()" class="btn btn-danger float-left">Confirm</button>
+  <button mat-dialog-close class="float-right btn btn-dark">Cancel</button>
+</ng-template>
+
+
+<ng-template #confirmLogoutDialouge>
+  <h2 matDialogTitle>You sure to logout ? </h2>
+  <button (click)="logoutUser()" class="btn btn-danger float-left">Confirm</button>
+  <button mat-dialog-close class="float-right btn btn-dark">Cancel</button>
+</ng-template>
+
+
+
+<app-footer></app-footer>

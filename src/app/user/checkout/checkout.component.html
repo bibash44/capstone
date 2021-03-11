@@ -1,0 +1,111 @@
+<section>
+
+  <app-navbar></app-navbar>
+
+  <div class="container checkout-container mt-5 text-center p-2">
+    <h3>CHECKOUT</h3>
+    <div class="items-container p-2 m-2">
+      <div>
+        <img *ngIf="cartData.image" [src]="BASE_URL+'upload/images/'+cartData.image" alt=""
+          style="width: 100px; height: 100px; object-fit: cover;">
+      </div>
+      <div class="pt-4">
+        <span> {{cartData.productname}} </span>
+      </div>
+      <div class="pt-4">
+        <span>{{cartData.totalitems}}</span>
+      </div>
+      <div class="pt-4">
+        <span> $ {{cartData.price}}</span>
+      </div>
+    </div>
+    <div class="total-amount text-right p-4">
+      <Span>Total: $ {{totalAmountToPay}} </Span>
+      <hr>
+    </div>
+
+    <div class="checkout-details">
+      <div class="payment-details">
+        <span> Choose your payment method </span>
+
+        <mat-radio-group aria-labelledby="payment-radio-group-label" class="payment-radio-group"
+          [(ngModel)]="paymentMethodChoosen">
+          <mat-radio-button class="payment-radio-button" value="paypal" color="primary" style="font-size: large;"> <i
+              class="fa fa-paypal"></i> Paypal
+            <span style="color: grey; font-style: italic; font-size: x-small;">
+              (Under development)
+            </span>
+          </mat-radio-button>
+          <mat-radio-button class="payment-radio-button" value="card" color="primary" style="font-size: large;">
+            <i class="fa fa-cc-visa"></i> &nbsp;
+            <i class="fa fa-cc-mastercard"></i> &nbsp;
+            <i class="fa fa-cc-amex"></i> &nbsp;
+            <i class="fa fa-cc-discover"></i> &nbsp;
+            Card
+          </mat-radio-button>
+          <mat-radio-button class="payment-radio-button" value="cash" color="primary" style="font-size: large;"> <i
+              class="fa fa-money"></i> Cash on delivery
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <app-loadingscreen *ngIf="payNowLoading"></app-loadingscreen>
+        <button *ngIf="!payNowLoading" class="btn btn-dark w-100" (click)="payNow()"> <i class="fa fa-lock"></i> Pay $
+          {{totalAmountToPay}}
+          with
+          {{paymentMethodChoosen}}
+        </button>
+
+      </div>
+
+      <div class="">
+
+      </div>
+
+
+
+    </div>
+  </div>
+</section>
+
+
+<ng-template #enterCardDetailsDialouge class="cardDetailsFormDialouge">
+  <h2 matDialogTitle> Enter card details </h2>
+  <span style="color: red; font-size: medium;" class="mb-3">
+    {{cardFormValidationMessage}}
+  </span>
+
+  <mat-form-field class="w-100">
+    <mat-label>Card number</mat-label>
+    <input matInput [(ngModel)]="cardNumber" type="number">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-50">
+    <mat-label>Expiry Month</mat-label>
+    <mat-select [(ngModel)]="exipryMonth">
+      <mat-option *ngFor="let month of months" [value]="month">
+        {{month}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="w-50">
+    <mat-label>Expiry year</mat-label>
+    <mat-select [(ngModel)]="expiryYear">
+      <mat-option *ngFor="let year of years" [value]="year">
+        {{year}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="w-100" type="number">
+    <mat-label>Security code</mat-label>
+    <input matInput [(ngModel)]="securityCode">
+  </mat-form-field>
+
+
+
+  <button (click)="payWithCard()" class="btn btn-dark float-left w-100 mb-2"> <i class="fa fa-lock"></i> pay $
+    {{totalAmountToPay}}
+  </button>
+  <button mat-dialog-close class="float-right btn btn-danger w-100">Cancel</button>
+</ng-template>

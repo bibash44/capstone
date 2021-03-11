@@ -1,0 +1,32 @@
+.signup-container {
+  margin: auto;
+  width: 30%;
+  margin-top: 2%;
+
+  ::ng-deep {
+    .mat-form-field-appearance-outline .mat-form-field-outline, .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+      color: black;
+    }
+
+    mat-card {
+      box-shadow: 14px 14px 28px #6b6b6b;
+
+      mat-form-field {
+        .mat-hint,
+        input,
+        .mat-form-field-label {
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .signup-container {
+    margin: auto;
+    width: 90%;
+    margin-top: 2%;
+  }
+}

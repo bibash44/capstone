@@ -1,0 +1,89 @@
+<app-navbar></app-navbar>
+
+<section>
+  <div class="container-fluid mt-5 mb-5">
+    <div class="row">
+      <div class="col-sm-3 profile-nav text-center">
+
+
+        <div class="user-details">
+          <h5> {{loggedInUserData.userData.data.email}} </h5>
+          <h6> {{loggedInUserData.userData.data.fname}} {{loggedInUserData.userData.data.lname}} </h6>
+        </div>
+
+        <ul class="text-left">
+          <li><a  [routerLink]="['/profile']"> <i class="fa fa-user-circle-o"></i> Profile </a> </li>
+          <li><a  [routerLink]="['/orders']"  style="color: #F44336;"> <i class="fa fa-first-order"></i> Order history</a></li>
+          <li><a  [routerLink]="['/cart']"> <i class="fa fa-shopping-cart"></i> Cart </a></li>
+          <li><a style="cursor: pointer;" (click)="confirmLogout()"> <i class="fa fa-power-off"></i> Logout </a></li>
+        </ul>
+      </div>
+      <div class="col-sm-8 ml-1 mt-5 text-center">
+        <input (keyup)="applyFilter($event)" placeholder="Search ordered list" #input class="SearchFilterInput mb-3">
+
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z13 w-100">
+
+          <ng-container matColumnDef="id">
+            <th class="text-left" mat-header-cell *matHeaderCellDef> Id </th>
+            <td class="text-left" mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="productname">
+            <th class="text-left" mat-header-cell *matHeaderCellDef> Product name </th>
+            <td class="text-left" mat-cell *matCellDef="let element"> {{element.productname}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <th class="text-left" mat-header-cell *matHeaderCellDef> Price </th>
+            <td class="text-left" mat-cell *matCellDef="let element"> {{element.price}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalitems">
+            <th class="text-left" mat-header-cell *matHeaderCellDef> Total items </th>
+            <td class="text-left" mat-cell *matCellDef="let element"> {{element.totalitems}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="image">
+            <th class="text-left" mat-header-cell *matHeaderCellDef> Image </th>
+            <td class="text-left" mat-cell *matCellDef="let element">
+              <img [src]="BASE_URL+'upload/images/'+element.image" alt="" class="image">
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th class="text-left" mat-header-cell *matHeaderCellDef> Status </th>
+            <td class="text-left" mat-cell *matCellDef="let element">
+              <span class="badge badge-warning p-2" *ngIf="element.orderstatus=='ordered'">  ORDERED </span>
+              <span class="badge badge-primary p-2" *ngIf="element.orderstatus=='ontheway'">  ON THE WAY </span>
+              <span class="badge badge-success p-2" *ngIf="element.orderstatus=='delivered'">  DELIVERED </span>
+            </td>
+          </ng-container>
+
+
+          <tr class="text-left" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr class="text-left" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 200]" showFirstLastButtons></mat-paginator>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<ng-template #confirmLogoutDialouge>
+  <h2 matDialogTitle>You sure to logout ? </h2>
+  <button (click)="logoutUser()" class="btn btn-danger float-left">Confirm</button>
+  <button mat-dialog-close class="float-right btn btn-dark">Cancel</button>
+</ng-template>
+
+
+
+
+<app-footer></app-footer>

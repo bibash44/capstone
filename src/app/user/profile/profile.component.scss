@@ -1,0 +1,67 @@
+.profile-nav {
+
+  .user-details {
+    color: #7a7a7a;
+
+  }
+
+
+  background: #ffffff;
+  box-shadow: 22px 22px 27px #cccccc, -22px -22px 27px #ffffff;
+  ul {
+    list-style: none;
+    line-height: 5vh;
+    display: flex;
+    flex-direction: column;
+
+    li {
+      margin-left: 0%;
+      margin-right: 0%;
+      margin-top: 1%;
+      margin-bottom: 1%;
+      border-bottom: 1px solid rgb(143, 143, 143);
+      a {
+        color: black;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #f44336;
+        transition: 0.5s ease-in-out all;
+      }
+    }
+  }
+}
+
+.update-container {
+  margin: auto;
+  width: 100%;
+  margin-top: 2%;
+
+  ::ng-deep {
+    .mat-form-field-appearance-outline .mat-form-field-outline, .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+      color: black;
+    }
+
+    mat-card {
+      box-shadow: 14px 14px 28px #6b6b6b;
+
+      mat-form-field {
+        .mat-hint,
+        input,
+        .mat-form-field-label {
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .update-container {
+    margin: auto;
+    width: 90%;
+    margin-top: 2%;
+  }
+}

@@ -1,0 +1,250 @@
+<app-loadingscreen *ngIf="pageLoading"></app-loadingscreen>
+
+<section class="ml-1 mr-1 mt-2">
+
+  <div class="w-75 m-auto p-3 addUpdateFormContainer" *ngIf="openForm">
+
+    <form [formGroup]="laptopFormGroup" (submit)="submitClothingsData()" class="form" style="overflow-y: scroll;">
+
+      <div *ngIf="responseFailed" class="alert alert-danger text-center" role="alert">
+        {{responseText}}
+      </div>
+
+      <div *ngIf="responseSuccess" class="alert alert-success text-center" role="alert">
+        {{responseText}}
+      </div>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Name * </mat-label>
+        <input matInput placeholder="Enter item name *" type="text" formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Brand * </mat-label>
+        <input matInput placeholder="Enter brand name *" type="text" formControlName="brand">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Model * </mat-label>
+        <input matInput placeholder="Enter model *" type="text" formControlName="model">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> RAM * </mat-label>
+        <input matInput placeholder="Enter RAM size (in GB) *" type="number" formControlName="ram">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Storage * </mat-label>
+        <input matInput placeholder="Enter total storage size (in GB) *" type="number" formControlName="storage">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Processer * </mat-label>
+        <input matInput placeholder="Enter processer detail (Eg: I5 processer, AMD processer) *" type="text"
+          formControlName="processer">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Generation * </mat-label>
+        <input matInput placeholder="Enter generation (Eg: 6th gen, 9th gen) *" type="text"
+          formControlName="generation">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Graphics * </mat-label>
+        <input matInput placeholder="Enter graphics (Eg: NVIDIA RTX 2080) *" type="text" formControlName="graphics">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Resolution * </mat-label>
+        <input matInput placeholder="Enter screen resolution (Eg: 1920x1080) *" type="text"
+          formControlName="resolution">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Screen size * </mat-label>
+        <input matInput placeholder="Enter screen size (in inch) *" type="number" formControlName="screensize">
+      </mat-form-field>
+
+
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Price * </mat-label>
+        <input matInput placeholder="Enter item price (in $) *" type="number" formControlName="price">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Warrenty * </mat-label>
+        <input matInput placeholder="Enter item warrenty (in months) *" type="number" formControlName="warrenty">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Description * </mat-label>
+        <input matInput placeholder="Enter item description *" type="text" formControlName="description">
+      </mat-form-field>
+
+      <input type="file" class="form-control" (change)="uploadImageToServer($event)" /> <br>
+      <div *ngIf="previewUrl!=null" class="text-left"> <img [src]="previewUrl" height="200px" width="200px"
+          style="object-fit: cover;"> </div>
+
+
+
+
+      <button *ngIf="!signupAndUpdateLoading" type="submit" class="float-left btn btn-dark w-100 mt-2 mb-2"
+        [disabled]="!laptopFormGroup.valid">
+        {{buttonTextAndHeading}}
+      </button>
+
+      <button (click)="closeForm()" class="float-right btn btn-danger w-100">Cancel</button>
+
+
+      <app-loadingscreen *ngIf="signupAndUpdateLoading"></app-loadingscreen>
+
+
+    </form>
+  </div>
+
+
+
+  <hr>
+  <!-- data table -->
+  <a class="btn btn-dark float-left mb-2" href="/admin"> Go to dashboard </a>
+  <button class="btn btn-dark float-right mb-2" (click)="openAddItemFormDiaglouge()">Add new item </button>
+  <input (keyup)="applyFilter($event)" placeholder="Search laptop list" #input class="SearchFilterInput mb-3">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z13 w-100" *ngIf="!pageLoading">
+
+    <ng-container matColumnDef="id">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Id </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Name </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="brand">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Brand </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.brand}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Model </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.model}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ram">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Ram </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.ram}} GB </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="storage">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Storage </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.storage}} GB </td>
+    </ng-container>
+
+    <ng-container matColumnDef="processer">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Processer </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.processer}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="generation">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Generation </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.generation}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="graphics">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Praphics </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.graphics}} </td>
+    </ng-container>
+
+
+
+
+    <ng-container matColumnDef="resolution">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Screen resolution </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.resolution}} px </td>
+    </ng-container>
+
+    <ng-container matColumnDef="screensize">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Screen Size </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.screensize}} </td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="price">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Price </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> ${{element.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="warrenty">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Warrenty </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.warrenty}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Description </th>
+      <td class="text-left" mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Image </th>
+      <td class="text-left" mat-cell *matCellDef="let element">
+        <img [src]="BASE_URL+'upload/images/'+element.image" alt="" class="image">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Edit </th>
+      <td class="text-left" mat-cell *matCellDef="let element">
+        <button mat-icon-button style="color: green;" (click)="openUpdateItemFormDiaglouge(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th class="text-left" mat-header-cell *matHeaderCellDef> Edit </th>
+      <td class="text-left" mat-cell *matCellDef="let element">
+        <button mat-icon-button style="color: red;" (click)="openDeleteItemFormDiaglouge(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+
+    <tr class="text-left" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr class="text-left" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100, 200]" showFirstLastButtons></mat-paginator>
+
+
+
+  <!-- Dialouge for adding a new assessment -->
+
+
+
+
+
+  <ng-template #deleteClothingConfirmDialouge>
+    <h2 matDialogTitle>Are you sure to delete ? </h2>
+    <button (click)="deleteItem()" class="btn btn-danger float-left">Delete</button>
+    <button mat-dialog-close class="float-right btn btn-dark">Cancel</button>
+  </ng-template>
+
+
+
+
+
+</section>

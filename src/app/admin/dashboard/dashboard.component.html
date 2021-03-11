@@ -1,0 +1,64 @@
+<section>
+  <h3 class="text-center">Admin dashboard <i class="fa fa-dashboard"></i> </h3>
+  <h5 class="text-center"> <a href="/" class="btn btn-dark"> view as user <i class="fa fa-user"></i> </a>  </h5>
+  <hr>
+
+  <div class="electronics-container mt-5 mb-5">
+    <div class="container-fluid">
+      <h4>  <span> <mat-icon svgIcon="electronics" inline="true" aria-hidden="false" class="icon-size"></mat-icon></span>
+        Electronics
+      </h4>
+      <div class="row electronics-items text-center">
+        <span *ngFor="let item of Electronics">
+          <a style="text-decoration: none;" [style.color]="item.fontColor"  [routerLink]="['electronics/'+item.routerLink]">
+            <i class="fa fa-2x {{item.faIcon}}"></i> <br> {{item.name}}
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="other-container mt-5 mb-5">
+    <div class="container-fluid">
+      <h4>  <span> <mat-icon inline="true" aria-hidden="false" class="icon-size">gamepad</mat-icon></span>
+        Others
+      </h4>
+      <div class="row other-items text-center">
+        <span *ngFor="let item of Others">
+          <a style="text-decoration: none; color: black;"  [routerLink]="[item.routerLink]">
+            <mat-icon [svgIcon]="item.svgIcon" inline="true" aria-hidden="false" class="icon-size"></mat-icon> <br> {{item.name}}
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="other-container mt-5 mb-5">
+    <div class="container-fluid">
+      <h4>  <span> <mat-icon svgIcon="indexpage" inline="true" aria-hidden="false" class="icon-size"></mat-icon></span>
+         User datas
+      </h4>
+      <div class="row other-items text-center">
+        <span>
+          <a style="text-decoration: none; color: black;"  [routerLink]="['userindexpage']">
+            <mat-icon svgIcon="indexpage" inline="true" aria-hidden="false" class="icon-size"></mat-icon> <br> User index page data
+          </a>
+        </span>
+
+        <span>
+          <a style="text-decoration: none; color: black;"  [routerLink]="['userorders']">
+            <mat-icon svgIcon="userorders" inline="true" aria-hidden="false" class="icon-size"></mat-icon> <br> User orders
+          </a>
+        </span>
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+</section>

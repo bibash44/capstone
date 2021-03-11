@@ -1,0 +1,53 @@
+.electronics-container, .other-container  {
+  background: #ffffff;
+  box-shadow: 20px 20px 21px #e6e6e6, -20px -20px 21px #ffffff;
+  .icon-size {
+    width: 30px;
+    height: 30px;
+  }
+  .electronics-items,.other-items {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    span {
+      flex: 1;
+      padding: 2%;
+      margin: 2%;
+      border-radius: 5px;
+      background: #ffffff;
+      box-shadow: 6px 6px 12px #c7c7c7, -6px -6px 12px #ffffff;
+    }
+    span:hover {
+      cursor: pointer;
+      box-shadow: 2px 2px 4px #c7c7c7, -2px -2px 4px #ffffff;
+    }
+  }
+}
+
+.clothings-container,
+.watches-container,
+.shoes-container,
+.groceries-container {
+  background: #ffffff;
+  box-shadow: 20px 20px 21px #e6e6e6, -20px -20px 21px #ffffff;
+  padding: 2%;
+  .icon-size {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+
+
+.clothings-container:hover,
+.watches-container:hover,
+.shoes-container:hover,
+.groceries-container:hover {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  box-shadow: 10px 10px 11px #e6e6e6, -10px -10px 11px #ffffff;
+  border: none;
+  outline: none;
+  border: none;
+}

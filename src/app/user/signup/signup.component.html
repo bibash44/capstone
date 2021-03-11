@@ -1,0 +1,155 @@
+
+<app-navbar></app-navbar>
+
+<div class="signup-container mb-5">
+
+  <mat-card>
+    <h1 class="text-center">signup </h1>
+
+    <form  [formGroup]="signupFormGroup" (submit)="submitSignup()">
+
+      <div *ngIf="responseFailed" class="alert alert-danger text-center" role="alert">
+        {{responseText}}
+      </div>
+
+      <div *ngIf="responseSuccess" class="alert alert-success text-center" role="alert">
+        {{responseText}}  <a [routerLink]="['/login']">  Go to login </a>
+      </div>
+
+      <!-- First name -->
+      <mat-error *ngIf="signupFormGroup.controls.fname.touched && signupFormGroup.controls.fname.hasError('required')">
+        Enter your first name *
+      </mat-error>
+
+      <mat-error *ngIf="signupFormGroup.controls.fname.touched && signupFormGroup.controls.fname.hasError('pattern')">
+        Enter valid first name *
+      </mat-error>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>First name </mat-label>
+        <input matInput placeholder="Enter your first name *" type="text" formControlName="fname">
+        <mat-icon matSuffix>person_pin</mat-icon>
+      </mat-form-field>
+
+      <!-- Last name -->
+
+      <mat-error *ngIf="signupFormGroup.controls.lname.touched && signupFormGroup.controls.lname.hasError('required')">
+        Enter your last name *
+      </mat-error>
+
+      <mat-error *ngIf="signupFormGroup.controls.lname.touched && signupFormGroup.controls.lname.hasError('pattern')">
+        Enter valid last name *
+      </mat-error>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Last name </mat-label>
+        <input matInput placeholder="Enter your last name *" type="text" formControlName="lname">
+        <mat-icon matSuffix>person_pin</mat-icon>
+      </mat-form-field>
+
+
+      <!-- Phone number -->
+      <mat-error *ngIf="signupFormGroup.controls.phone.touched && signupFormGroup.controls.phone.hasError('required')">
+        Enter your phone number *
+      </mat-error>
+
+      <mat-error *ngIf="signupFormGroup.controls.phone.touched && signupFormGroup.controls.phone.hasError('pattern')">
+        Enter Valid number *
+      </mat-error>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Phone number </mat-label>
+        <input matInput placeholder="Enter your phone number *" type="text" formControlName="phone">
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-error *ngIf="signupFormGroup.controls.email.touched && signupFormGroup.controls.email.hasError('required')">
+        Enter your email *
+      </mat-error>
+      <mat-error *ngIf="signupFormGroup.controls.email.touched && signupFormGroup.controls.email.hasError('email')">
+        Enter valid email *
+      </mat-error>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Email </mat-label>
+        <input matInput placeholder="Enter your email  *" type="text" formControlName="email">
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+
+
+      <!-- state -->
+
+      <mat-error
+        *ngIf="signupFormGroup.controls.state.touched && signupFormGroup.controls.state.hasError('required')">
+        Select your state *
+      </mat-error>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>state</mat-label>
+        <mat-select formControlName="state">
+          <mat-option *ngFor="let state of states" [value]="state.state">
+            {{state.state}}
+          </mat-option>
+        </mat-select>
+        <mat-icon matSuffix>map</mat-icon>
+      </mat-form-field>
+
+
+      <!-- Zip / Postal code -->
+
+      <mat-error
+        *ngIf="signupFormGroup.controls.zip.touched && signupFormGroup.controls.zip.hasError('required')">
+        Enter your postal code *
+      </mat-error>
+
+      <mat-error
+        *ngIf="signupFormGroup.controls.zip.touched && signupFormGroup.controls.zip.hasError('pattern')">
+        Enter 5 digits postal code *
+      </mat-error>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Postal code </mat-label>
+        <input matInput placeholder="Enter your postal code  *" type="number" formControlName="zip">
+        <mat-icon matSuffix>location_on</mat-icon>
+      </mat-form-field>
+
+      <!-- Password -->
+
+      <mat-error
+        *ngIf="signupFormGroup.controls.password.touched && signupFormGroup.controls.password.hasError('required')">
+        Enter your password *
+      </mat-error>
+
+      <mat-error style="font-size: small;"
+        *ngIf="signupFormGroup.controls.password.touched && signupFormGroup.controls.password.hasError('pattern')">
+        Enter more than 8 charcahters
+      </mat-error>
+
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Password </mat-label>
+        <input matInput placeholder="Enter your password *" [type]="hide?'password':'text'" formControlName="password">
+        <mat-icon style="cursor: pointer;" matSuffix (click)="hide=!hide">{{hide ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
+      </mat-form-field>
+
+
+      <!-- Submit button -->
+
+      <button *ngIf="!loading" type="submit" class="btn btn-dark w-100 p-2 mt-2 mb-2" [disabled]="!signupFormGroup.valid"> Sign up
+      </button>
+
+
+      <app-loadingscreen *ngIf="loading"></app-loadingscreen>
+
+
+      <div class="text-center mt-2"> Already a member?
+        <a [routerLink]="['/login']">
+          Click here to login </a>
+      </div>
+
+    </form>
+  </mat-card>
+</div>

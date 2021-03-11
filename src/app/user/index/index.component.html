@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+
+
+
+<div class="container-fluid slider-container">
+  <app-loadingscreen *ngIf="Loading1"></app-loadingscreen>
+
+  <owl-carousel-o [options]="mainSliderOptions" *ngIf="!Loading1">
+    <ng-template carouselSlide *ngFor="let item of scrollingImages"> <img [src]="BASE_URL+'upload/images/'+ item.image"
+        class="p-3"> </ng-template>
+  </owl-carousel-o>
+</div>
+
+
+<div class="container new-arrivals mt-5">
+
+  <h3 class="w-100 text-center">New Arrivals</h3>
+
+  <app-loadingscreen *ngIf="Loading2"></app-loadingscreen>
+
+  <owl-carousel-o [options]="newArivalSliderOptions" *ngIf="!Loading2">
+    <ng-template carouselSlide *ngFor="let item of newArrivals">
+      <mat-card class="text-center">
+        <a>
+          <img [src]="BASE_URL+'upload/images/'+ item.image" class="p-3">
+        </a>
+        <div class="w-100"> {{item.name}} </div>
+        <div class="w-100"> $ {{item.price}} </div>
+      </mat-card>
+    </ng-template>
+  </owl-carousel-o>
+</div>
+
+
+<div class="best-sales text-center w-100 mt-5 mb-5">
+  <h3>Best sales</h3>
+  <app-loadingscreen *ngIf="Loading3"></app-loadingscreen>
+  <div class="container-fluid" *ngIf="!Loading3">
+    <div class="row">
+      <div class="col-sm-3 mt-5 mb-5" *ngFor="let item of bestSalesImages | slice:0:loadMoreBestSales;">
+        <mat-card>
+          <a>
+            <img [src]="BASE_URL+'upload/images/'+ item.image" class="p-3 w-100">
+          </a>
+          <div class="w-100"> {{item.name}} </div>
+          <div class="w-100"> $ {{item.price}} </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <button mat-stroked-button (click)="loadMoreItems()">Load more ...</button>
+
+
+  </div>
+</div>
+
+<footer>
+  <app-footer></app-footer>
+</footer>

@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<section>
+
+  <div class="itemlist text-center w-100 mt-5 mb-5">
+    <h3>{{Category}} / {{subCategory}} </h3>
+
+    <div class="filter w-100">
+      <input (keyup)="applyFilter($event)" placeholder="Type {{searchKeyWord}} to search . .  " #input
+        class="SearchFilterInput mb-3 w-75">
+
+      <!-- <select (change)="changeSearchKeyword($event)">
+        <option value="name">Name</option>
+        <option value="price">Price</option>
+      </select> -->
+
+      <br>
+      <div class="sort">
+        <i class="fa fa-filter"></i>
+        <select (change)="sort($event)">
+          <!-- <option value="1">Ascending to name</option>
+          <option value="2">Descending to name</option> -->
+          <option value="3">Price high to low</option>
+          <option value="4">Price low to high</option>
+        </select>
+      </div>
+
+    </div>
+
+
+    <app-loadingscreen *ngIf="loading"></app-loadingscreen>
+
+    <div class="container-fluid" *ngIf="!loading">
+      <div class="row">
+        <div class="col-sm-3 mt-5 mb-5" *ngFor="let item of dataList | slice:0:loadMoreItems;">
+          <mat-card>
+            <a [routerLink]="['/categories/'+Category.toLowerCase()+'/'+subCategory.toLowerCase()+'/'+ item.id]">
+              <img [src]="BASE_URL+'upload/images/'+ item.image" class="p-3 w-100">
+            </a>
+            <div class="w-100"> {{item.name}} </div>
+            <div class="w-100"> $ {{item.price}} </div>
+          </mat-card>
+        </div>
+      </div>
+
+      <button mat-stroked-button (click)="fnloadMoreItems()">Load more ...</button>
+    </div>
+  </div>
+
+</section>
+
+
+<app-footer></app-footer>
